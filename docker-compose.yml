@@ -101,10 +101,10 @@ services:
     # when running this offline, spin up the stack once and then run : 
     #   docker cp ksqldb:/usr/share/confluent-hub-components ./data/connect-jars
     volumes:
-      - $PWD/data:/data
-      - $PWD/ksql/ksql-clickstream-demo/demo/:/scripts
-      - $PWD/ksql/ksql-clickstream-demo/demo/connect-config:/usr/share/java/null-smt
-      - $PWD/confluent-hub-components/:/usr/share/confluent-hub-components
+      - ./data:/data
+      - ./ksql/ksql-clickstream-demo/demo/:/scripts
+      - ./ksql/ksql-clickstream-demo/demo/connect-config:/usr/share/java/null-smt
+      - ./confluent-hub-components/:/usr/share/confluent-hub-components
 
   ksqldb-cli:
     container_name: ksqldb-cli
@@ -114,7 +114,7 @@ services:
     entrypoint: /bin/sh
     tty: true
     volumes:
-      - $PWD/ksql/ksql-clickstream-demo/demo/:/scripts
+      - ./ksql/ksql-clickstream-demo/demo/:/scripts
 
   tools:
     image: cnfltraining/training-tools:5.4
@@ -133,7 +133,7 @@ services:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
       ELASTIC_HOST: elasticsearch
     volumes:
-     - $PWD/ksql/ksql-clickstream-demo/demo:/scripts
+     - ./ksql/ksql-clickstream-demo/demo:/scripts
 
   grafana:
     container_name: grafana
@@ -145,7 +145,7 @@ services:
       GF_SECURITY_ADMIN_USER: user
       GF_SECURITY_ADMIN_PASSWORD: user
     volumes:
-     - $PWD/ksql/ksql-clickstream-demo/demo:/scripts
+     - ./ksql/ksql-clickstream-demo/demo:/scripts
 
   control-center:
     image: ${REPOSITORY}/cp-enterprise-control-center:${CONFLUENT_DOCKER_TAG}
